@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Coder</title>
+    <style>
+        /* Base styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #0a0d14;
+            color: white;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Background elements */
+        .bg-gradient-1 {
+            position: absolute;
+            top: 25%;
+            left: -80px;
+            width: 400px;
+            height: 400px;
+            background-color: #2563eb;
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(60px);
+            z-index: 1;
+        }
+        
+        .bg-gradient-2 {
+            position: absolute;
+            bottom: 25%;
+            right: -80px;
+            width: 400px;
+            height: 400px;
+            background-color: #4f46e5;
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(60px);
+            z-index: 1;
+        }
+        
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            color: #1a202c;
+            opacity: 0.05;
+            z-index: 0;
+            animation: float linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.05;
+            }
+            90% {
+                opacity: 0.05;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Content styling */
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #60a5fa, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .building-text {
+            font-size: 1.5rem;
+            color: #d1d5db;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .dots-container {
+            width: 36px;
+            display: inline-block;
+            text-align: left;
+        }
+        
+        .divider {
+            height: 1px;
+            width: 64px;
+            background: linear-gradient(to right, transparent, #60a5fa, transparent);
+            margin: 3rem auto;
+        }
+        
+        .twitter-link {
+            margin-top: 3rem;
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .twitter-link:hover {
+            color: #60a5fa;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .building-text {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background elements -->
+    <div class="bg-gradient-1"></div>
+    <div class="bg-gradient-2"></div>
+    
+    <!-- Floating particles -->
+    <div id="particles"></div>
+    
+    <!-- Main content -->
+    <div class="container">
+        <h1 class="title">Claude Coder</h1>
+        
+        <p class="building-text">
+            <span>Building</span><span class="dots-container" id="dots"></span>
+        </p>
+        
+        <div class="divider"></div>
+        
+        <a href="https://twitter.com/claudecoder" target="_blank" rel="noopener noreferrer" class="twitter-link">@ClaudeCoder</a>
+    </div>
+    
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 15; i++) {
+            const size = Math.floor(Math.random() * 40) + 20;
+            const duration = Math.floor(Math.random() * 20) + 15;
+            const delay = Math.floor(Math.random() * 10);
+            const xPos = Math.floor(Math.random() * 100);
+            
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.textContent = '{';
+            particle.style.fontSize = `${size}px`;
+            particle.style.top = `-${size}px`;
+            particle.style.left = `${xPos}%`;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Animate the dots
+        const dotsElement = document.getElementById('dots');
+        let dots = '.';
+        
+        function updateDots() {
+            // Add dots until we reach 3, then reset to 1
+            if (dots.length < 3) {
+                dots += '.';
+            } else {
+                dots = '.';
+            }
+            
+            dotsElement.textContent = dots;
+        }
+        
+        // Update dots every 600ms
+        setInterval(updateDots, 600);
+    </script>
+</body>
+</html>
